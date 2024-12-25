@@ -1,12 +1,10 @@
 //todo
 
+const log = console.log;
 
 const inputToDo = document.querySelector('[data-input]');
 const buttonTodo = document.querySelector('#addtodo');
 const tasksToDo = document.querySelector('.tasks');
-
-
-const log = console.log;
 
 const toDoList = JSON.parse(localStorage.getItem("todos")) || [];
 
@@ -14,7 +12,7 @@ function saveToLocalStorage(key = "todos") {
     localStorage.setItem(key, JSON.stringify(toDoList));
     }
 
-//шаблон для прорисовки
+//Шаблон для прорисовки
 
     function addBlockHtml(task) {
       const taskList = document.createElement('div');
@@ -27,35 +25,36 @@ function saveToLocalStorage(key = "todos") {
       </div>
       </div>`;
       tasksToDo.append(taskList);
-
       
-  }
- 
-  //ожидание нажатии и удаления задачи
-  const delBtn = () => {
-    const deleteBtn = document.querySelectorAll('.deletetask');
-    deleteBtn.forEach(del => {
-      del.addEventListener('click', () => {
-        del.parentElement.parentElement.remove();
-        delTaskFromArray();
-        saveToLocalStorage();
-      });
-    }); 
   };
 
-  //Добавляем стиль выполненной задачи
-  function doneBtn() {
-    const tasks = document.querySelectorAll('.task');
-    tasks.forEach(task => {
-      task.addEventListener('click', () => {
-        task.classList.toggle('done-task');
-        saveToLocalStorage();
-      });
+//Удаление из массива и тудушки
+function delBtn() {
+  const button = document.querySelectorAll('.deletetask');
+  for (let i = 0; i < button.length; i++){
+    button[i].addEventListener('click', () => {
+      log("нажата кнопка удалить");
+      toDoList.splice([i], 1);
+      saveToLocalStorage();
+      render();
     });
   };
+};
+
+
+//Добавляем стиль выполненной задачи
+function doneBtn() {
+  const button = document.querySelectorAll('.completetask');
+  const item = document.querySelectorAll('.task');
+    for (let j = 0; j < button.length; j++) {
+      button[j].addEventListener('click', () => {
+          item[j].classList.toggle('done-task');
+      });
+};
+};
   
   
- //ожидание и создание задачи 
+ //Ожидание и создание задачи 
   buttonTodo.addEventListener("click", () => {
       if (!(inputToDo.value.trim() === '')) {
           toDoList.push(inputToDo.value);
@@ -69,7 +68,7 @@ function saveToLocalStorage(key = "todos") {
   
   });
 
-  //прорисовка из массива
+  //Прорисовка из массива
   function render () {
       tasksToDo.innerHTML = '';
       toDoList.forEach(todo => {
@@ -77,20 +76,10 @@ function saveToLocalStorage(key = "todos") {
     });
 
     delBtn();
-    doneBtn()
+    doneBtn();
   };
 
-  //удаление из массива
- function delTaskFromArray() {
-  for (let i = 0; i < toDoList.length; i++) {
-          if(toDoList[i]) {
-          log('должен удалиться элемент из массива');
-          toDoList.splice([i], 1);
-          saveToLocalStorage();
-      }; 
-      break;
-    };
-  };
+
 
   log(toDoList);
 

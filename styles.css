@@ -72,6 +72,10 @@ input {
     display: flex;
     justify-content: space-between;
 }
-  
+
+.done-task span{
+text-decoration: line-through;
+
+}
 
   

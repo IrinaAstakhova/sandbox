@@ -6,6 +6,7 @@ const inputToDo = document.querySelector('[data-input]');
 const buttonTodo = document.querySelector('#addtodo');
 const tasksToDo = document.querySelector('.tasks');
 
+
 // const toDoList = JSON.parse(localStorage.getItem("todos")) || [];
 
 
@@ -55,10 +56,12 @@ function delBtn() {
 //Добавляем стиль выполненной задачи
 function doneBtn() {
   const button = document.querySelectorAll('.completetask');
+  const deleteBtn = document.querySelectorAll('.deletetask');
   const item = document.querySelectorAll('.task');
     for (let j = 0; j < button.length; j++) {
       button[j].addEventListener('click', () => {
           item[j].classList.toggle('done-task');
+          deleteBtn[j].classList.toggle('disabled');
           toDoList[j].completed = !(toDoList[j].completed);
           saveToLocalStorage(toDoList);
 
@@ -87,6 +90,8 @@ function doneBtn() {
   
   });
 
+  
+
   //Прорисовка из массива
   function render () {
       tasksToDo.innerHTML = '';
@@ -95,16 +100,21 @@ function doneBtn() {
       addBlockHtml(todo); 
       
     });
+    const deleteBtn = document.querySelectorAll('.deletetask');
     const tasks = document.querySelectorAll('.task');
-    tasks.forEach(task => {
-      task.classList.remove('done-task');
-    })
     
+    //Логика внешнего отображения задач
+    for (let k = 0; k < deleteBtn.length; k++) {
+      deleteBtn[k].classList.add('disabled');
+      tasks[k].classList.remove('done-task');
+    }
+
     for (let i = 0; i < toDoList.length; i++) {
       if (toDoList[i].completed === true) {
         tasks[i].classList.add('done-task');
-      }
-    }
+        deleteBtn[i].classList.remove('disabled');
+      } 
+    };
 
     delBtn();
     doneBtn();
@@ -115,6 +125,6 @@ function doneBtn() {
 
   log(toDoList);
 
-  render ();
+  render();
   
   

@@ -35,7 +35,7 @@
   .container {
     margin: 350px auto;
     padding: 20px;
-    width: 300px;
+    width: 600px;
     box-sizing: border-box;
     text-align: center;
     border: 5px dotted #fafafa;
@@ -76,6 +76,15 @@ input {
 .done-task span{
 text-decoration: line-through;
 
+}
+
+.disabled{
+  pointer-events: none;
+  filter: grayscale(0.7);
+}
+
+button {
+  cursor: pointer;
 }
 
   

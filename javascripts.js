@@ -33,8 +33,8 @@ const toDoList = getToLocalStorage();
       taskList.innerHTML = 
       `<div class="task" data-id="${id}"><div class="task-and-date"><span>${task}</span><span>${date}</span></div>
       <div class="buttons">
-      <button class="completetask" onClick="doneBtn()">✅</button>
-      <button class="deletetask" onClick="delBtn(this)">❌</button>
+      <button class="completetask">✅</button>
+      <button class="deletetask">❌</button>
       </div>
       </div>`;
       tasksToDo.append(taskList);
@@ -65,21 +65,7 @@ function searchRender() {
     addBlockHtml(todoText[i], todoDate[i], todoId[i])
   };
 
-const deleteBtn = document.querySelectorAll('.deletetask');
-const tasks = document.querySelectorAll('.task');
 
-//Логика внешнего отображения задач
-for (let k = 0; k < deleteBtn.length; k++) {
-  deleteBtn[k].classList.add('disabled');
-  tasks[k].classList.remove('done-task');
-};
-
-for (let i = 0; i < arrayFilterSearch.length; i++) {
-  if (arrayFilterSearch[i].completed === true) {
-    tasks[i].classList.add('done-task');
-    deleteBtn[i].classList.remove('disabled');
-  } 
-};
 };
 
 
@@ -111,6 +97,7 @@ function doneBtn() {
           deleteBtn[j].classList.toggle('disabled');
           toDoList[j].completed = !(toDoList[j].completed);
           saveToLocalStorage(toDoList);
+
       });
 };
 };
@@ -128,11 +115,10 @@ function doneBtn() {
         toDoList.push(newTodo);
     inputToDo.value = '';
     render ();
-   
+    saveToLocalStorage(toDoList);
 } else {
     alert('Поле не может быть пустым')
   };
-  
 };
   
  //Обработчики на создание задачи по клику и по нажатию на enter
@@ -179,8 +165,8 @@ function doneBtn() {
       } 
     };
 
-    
-
+    doneBtn();
+    delBtn();
   };
 
 

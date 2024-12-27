@@ -6,29 +6,29 @@ const inputToDo = document.querySelector('[data-input]');
 const buttonTodo = document.querySelector('#addtodo');
 const tasksToDo = document.querySelector('.tasks');
 
-
-// const toDoList = JSON.parse(localStorage.getItem("todos")) || [];
-
-
+function getDateRepresentation (date) {
+  return Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "numeric", year: "numeric"
+  }).format(date);
+  }
 
 function saveToLocalStorage(todos) {
     localStorage.setItem("todos", JSON.stringify(todos));
     };
 
-const getToLocalStorage = () => {
+function getToLocalStorage() {
       return JSON.parse(localStorage.getItem("todos")) || [];
       };
 
-const toDoList = getToLocalStorage ();
+const toDoList = getToLocalStorage();
 
 
 //Шаблон для прорисовки
 
-    function addBlockHtml(task) {
+    function addBlockHtml(task, date ) {
       const taskList = document.createElement('div');
       taskList.classList.add("taskList");
       taskList.innerHTML = 
-      `<div class="task"><span>${task}</span>
+      `<div class="task"><div class="task-and-date"><span>${task}</span><span>${date}</span></div>
       <div class="buttons">
       <button class="completetask">✅</button>
       <button class="deletetask">❌</button>
@@ -69,26 +69,36 @@ function doneBtn() {
 };
 };
 
-
-  
-  
- //Ожидание и создание задачи 
-  buttonTodo.addEventListener("click", () => {
-      if (!(inputToDo.value.trim() === '')) {
-        const newTodo = {
-          id: Date.now(),
-          text: inputToDo.value.trim(),
-          completed: false,
-          };
-          toDoList.push(newTodo);
-      inputToDo.value = '';
-      render ();
-      saveToLocalStorage(toDoList);
-  } else {
-      alert('Поле не может быть пустым')
+//Функция добавления задачи
+  function addTask() {
+    if (!(inputToDo.value.trim() === '')) {
+      const newTodo = {
+        id: Date.now(),
+        text: inputToDo.value.trim(),
+        completed: false,
+        date: getDateRepresentation(),
+        };
+        toDoList.push(newTodo);
+    inputToDo.value = '';
+    render ();
+    saveToLocalStorage(toDoList);
+} else {
+    alert('Поле не может быть пустым')
   };
+};
+  
+ //Обработчики на создание задачи по клику и по нажатию на enter
+ 
+  buttonTodo.addEventListener("click", () => {
+    addTask()
   
   });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.keyCode === 13) {
+      addTask()
+    }
+});
 
   
 
@@ -96,10 +106,11 @@ function doneBtn() {
   function render () {
       tasksToDo.innerHTML = '';
       const todoText = toDoList.map(({ text }) => text);
-      todoText.forEach(todo => {
-      addBlockHtml(todo); 
-      
-    });
+      const todoDate = toDoList.map(({ date }) => date);
+      for(let i = 0; i < todoText.length; i++) {
+        addBlockHtml(todoText[i], todoDate[i])
+      }
+
     const deleteBtn = document.querySelectorAll('.deletetask');
     const tasks = document.querySelectorAll('.task');
     
@@ -124,7 +135,6 @@ function doneBtn() {
 
 
   log(toDoList);
-
   render();
   
   

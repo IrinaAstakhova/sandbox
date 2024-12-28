@@ -33,7 +33,7 @@ const toDoList = getToLocalStorage();
       taskList.innerHTML = 
       `<div class="task" data-id="${id}"><div class="task-and-date"><span>${task}</span><span>${date}</span></div>
       <div class="buttons">
-      <button class="completetask">✅</button>
+      <button class="completetask" data-id="${id}">✅</button>
       <button class="deletetask">❌</button>
       </div>
       </div>`;
@@ -42,7 +42,7 @@ const toDoList = getToLocalStorage();
   };
 
 //Поиск
-searchTask.addEventListener('input', (e) => {
+searchTask.addEventListener('input', () => {
   searchFilter()
   searchRender()
 });
@@ -50,6 +50,7 @@ searchTask.addEventListener('input', (e) => {
 function searchFilter() {
   let fiterSearchValue = searchTask.value.toLowerCase();
   arrayFilterSearch = toDoList.filter((item) => item.text.includes(fiterSearchValue));
+  log(arrayFilterSearch)
 };
 
 function searchRender() {
@@ -61,18 +62,36 @@ function searchRender() {
   const todoText = arrayFilterSearch.map(({ text }) => text);
   const todoDate = arrayFilterSearch.map(({ date }) => date);
   const todoId = arrayFilterSearch.map(({ id }) => id);
-  for(let i = 0; i < todoText.length; i++) {
-    addBlockHtml(todoText[i], todoDate[i], todoId[i])
+  for(let i = 0; i < arrayFilterSearch.length; i++) {
+   
+      addBlockHtml(todoText[i], todoDate[i], todoId[i])
+    
+    
   };
 
+  const deleteBtn = document.querySelectorAll('.deletetask');
+  const tasks = document.querySelectorAll('.task');
+  
+  //Логика внешнего отображения задач
+  for (let k = 0; k < deleteBtn.length; k++) {
+    deleteBtn[k].classList.add('disabled');
+    tasks[k].classList.remove('done-task');
+  }
+
+  for (let i = 0; i < arrayFilterSearch.length; i++) {
+    if (arrayFilterSearch[i].completed === true) {
+      tasks[i].classList.add('done-task');
+      deleteBtn[i].classList.remove('disabled');
+    } 
+  };
+
+  doneSearchBtn();
+  delBtn();
 
 };
 
-
-
 //Удаление из массива и тудушки
 function delBtn() {
-
   const button = document.querySelectorAll('.deletetask');
   for (let i = 0; i < button.length; i++){
     button[i].addEventListener('click', () => {
@@ -99,7 +118,29 @@ function doneBtn() {
           saveToLocalStorage(toDoList);
 
       });
+  };
 };
+
+
+function doneSearchBtn() {
+  const buttons = document.querySelectorAll('.completetask');
+  const deleteBtn = document.querySelectorAll('.deletetask');
+  const item = document.querySelectorAll(".task");
+
+  arrayFilterSearch.forEach((task, index) => {
+    const btn = buttons[index];
+    
+    if (btn) {
+      btn.addEventListener('click', () => {
+      if(task.id) {        
+        deleteBtn[index].classList.toggle('disabled');
+        item[index].classList.toggle('done-task');
+        task.completed = !(task.completed);
+        saveToLocalStorage(toDoList);
+        };
+      });
+    };
+  });
 };
 
 //Функция добавления задачи

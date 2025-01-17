@@ -8,25 +8,35 @@
     <script src="./tbbt.js" defer></script>
   </head>
   <body>
-    <div class="container">
+    <details>
+      <summary>Тудушечка</summary>    
+      <div class="container content">
       <h3>😊 Тудушечка</h3>
-      <div class="todo">
+        <div class="todo">
           <input type="text" data-input>
           <button id="addtodo">Добавить задачу ⚓</button>
-      </div>
-      <div class="search-filter">
+        </div>
+        <div class="search-filter">
         <input type="text" placeholder="Поиск задачи..." data-search-filter>
-      </div>
+        </div>
       <hr>
-      <div class="tasks">
-    </div>    
-  </div>
-  <div class="container2">
-    <h2 class="title-dice"></h2>
-    <button class="btn-action">бросить кости</button>
-    <div class="container-dice"></div>
-  </div>
-  <div class="container3">
+        <div class="tasks">
+        </div>    
+      </div>
+    </details>
+
+  <details>
+    <summary>Кости</summary>
+    <div class="container2 content">
+      <h2 class="title-dice"></h2>
+      <button class="btn-action">бросить кости</button>
+      <div class="container-dice"></div>
+    </div>
+  </details>
+
+  <details>
+  <summary>Камень, ножницы, бумага, ящерица, Спок</summary>
+  <div class="container3 content">
     <div class="logo">
       <img src="./image/logo.png" alt="лого">
     </div>
@@ -45,6 +55,8 @@
         </div>
       </div>
     <div class="container-winner"></div>
+  </div>
+  </details>
 
   
     <script src="./javascripts.js"></script>

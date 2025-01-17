@@ -8,8 +8,9 @@
     <script src="./tbbt.js" defer></script>
   </head>
   <body>
+    <div class="title-page">Sandbox</div>
     <details>
-      <summary>Тудушечка</summary>    
+      <summary>Список задач</summary>    
       <div class="container content">
       <h3>😊 Тудушечка</h3>
         <div class="todo">
@@ -35,11 +36,15 @@
   </details>
 
   <details>
-  <summary>Камень, ножницы, бумага, ящерица, Спок</summary>
+    <audio  id="bigBanTheory" src="Barenaked Ladies Big Bang Theory Theme.mp3"></audio>
+  <summary  class="big-ban-theory" onClick="stopAudio()">Камень, ножницы, бумага, ящерица, Спок</summary>
+  
   <div class="container3 content">
+    
     <div class="logo">
       <img src="./image/logo.png" alt="лого">
     </div>
+    <a class="mute" onClick="toggleAudio()">🎶</a>
     <h2 class="title-tbbt"></h2>
     <div class="sheldon"></div>
     <button class="btn-action-tbbt">Играть 🧬</button>

@@ -1,3 +1,11 @@
+const audio = document.getElementById('bigBanTheory');
+const sectionTbBt = document.querySelector('.big-ban-theory');
+const mute = document.querySelector('.mute');
+const toggleAudio = () => {
+    return audio.paused ? audio.play() : audio.pause();
+};
+const stopAudio = () => { return audio.pause()};
+
 const containerImage = document.querySelector('.container-image');
 const penny = document.querySelector('.image_one');
 const lenny = document.querySelector('.image_two');

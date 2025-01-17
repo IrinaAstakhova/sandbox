@@ -7,6 +7,13 @@
     background-color: hwb(0 82% 18%);
   }
 
+  .title-page {
+    text-align: center;
+    margin: 20px;
+    font-size: 24px;
+    font-weight: 900;
+  }
+
   details {
     position: relative;
     display: block;
@@ -301,9 +308,15 @@ text-align: center;
 
   .container-winner {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 25px;
     margin: 25px 0;
-    box-shadow: 0 0 5px grey;
     font-weight: 900;
+  }
+
+  .mute {
+    cursor: pointer;
+    border: 2px solid #402a32;
+    font-size: 30px;
+    border-radius: 6px;
   }

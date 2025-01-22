@@ -96,7 +96,7 @@
     
 }
 
-input {
+input:not(.search-input) {
     flex-grow: 3;
     height: 30px;
     border-radius: 10px;
@@ -319,4 +319,28 @@ text-align: center;
     border: 2px solid #402a32;
     font-size: 30px;
     border-radius: 6px;
+  }
+
+  .container4 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  }
+
+  .container4 h1 {
+    color: #e1e1e1;
+    text-align: center;
+  }
+
+  .search-input {
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    outline: 1px solid #666565;
+    border-radius: 8px;
+    padding: 10px 20px;
+    
   }

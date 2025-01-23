@@ -142,7 +142,7 @@ text-decoration: line-through;
   filter: grayscale(0.7);
 }
 
-button:not(#addtodo, .btn-action, .btn-action-tbbt, .remove-btn) {
+button:not(#addtodo, .btn-action, .btn-action-tbbt, .remove-btn, .prev, .next) {
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -389,3 +389,27 @@ text-align: center;
     text-decoration: line-through;
 
   }
+
+.slider-body {
+  min-height: 100vh;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-container {
+  position: relative;
+  width: 800px;
+  margin: 0 15px;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+}
+
+.slider img {
+  min-width: 100%;
+  object-fit: cover;
+}

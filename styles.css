@@ -375,3 +375,17 @@ text-align: center;
     -webkit-border-image: -webkit-linear-gradient(to bottom right, rgb(228 137 177),  rgba(148,187,233,1));
     border-image-slice: 1;
   }
+
+  .todo-item span {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .todo-item.completed {
+    background: rgba(148, 188, 233, 0.241); 
+  }
+
+  .todo-item.completed span {
+    text-decoration: line-through;
+
+  }

@@ -23,7 +23,9 @@ class DOM {
     create(type, textContent, ...classNames) {
         const item = document.createElement(type);
         item.textContent = textContent;
-        item.classList.add(...classNames);
+        if(classNames.length) {
+            item.className = classNames.join(" ");
+        }
 
         return item
     }
@@ -47,7 +49,7 @@ class TodoItem extends Item {
 class TodoApp {
     constructor() {
         this.dom = new DOM();
-        this.storage = new LocalStorage ("todos");
+        this.storage = new LocalStorage ("todo-Items");
         this.todoList = this.storage.GetItem();
         this.todoInput = this.dom.query("[data-todo-add]");
         this.todoContainer = this.dom.query("[data-todos-container]");
@@ -69,6 +71,15 @@ class TodoApp {
         this.render();
     }
 
+    toogleTodos(id) {
+        const todo = this.todoList.find(todo => todo.id === id);
+        if(todo) {
+            todo.completed = !todo.completed;
+            this.storage.SetItem(this.todoList);
+            this.render();
+        }
+    }
+
     bindEvents() {
         this.todoInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter" && this.todoInput.value.trim()) {
@@ -85,6 +96,9 @@ class TodoApp {
                 const id = +(elem.dataset.id);
                 this.removeTodos(id);
                 
+            } else if (elem.classList.contains("todo-item")) {
+                const id = +(elem.dataset.id);
+                this.toogleTodos(id);
             }
         })
     }
@@ -92,13 +106,16 @@ class TodoApp {
     render() {
         this.todoContainer.innerHTML = '';
         this.todoList.forEach(todoEl => {
-            const todoItem = this.dom.create("div", todoEl.text, "todo-item");
+            const todoItem = this.dom.create("div", "", "todo-item", todoEl.completed ? "completed" : "");
             todoItem.dataset.id = todoEl.id;
+
+            const todoText = this.dom.create("span", todoEl.text);
 
             const btnRemove = this.dom.create("button", "Удалить", "remove-btn");
             btnRemove.dataset.id = todoEl.id;
-            btnRemove.disabled = todoEl.completed;
+            btnRemove.disabled = !todoEl.completed;
 
+            todoItem.appendChild(todoText);
             todoItem.appendChild(btnRemove);
             this.todoContainer.appendChild(todoItem);
         })

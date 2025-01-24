@@ -407,9 +407,23 @@ text-align: center;
 
 .slider {
   display: flex;
+  transition: all 1.2s ease-in-out;
+
 }
 
 .slider img {
   min-width: 100%;
   object-fit: cover;
+  animation-name: fade;
+  animation-duration: 2.5s;
+
+}
+
+@keyframes fade {
+  from {
+      opacity: 0.4
+  }
+  to {
+      opacity: 1
+  }
 }
